@@ -829,6 +829,7 @@ fn hsplit_new(
     Ok(())
 }
 
+#[cfg(feature = "dap")]
 fn debug_eval(
     cx: &mut compositor::Context,
     args: &[Cow<str>],
@@ -851,6 +852,7 @@ fn debug_eval(
     Ok(())
 }
 
+#[cfg(feature = "dap")]
 fn debug_start(
     cx: &mut compositor::Context,
     args: &[Cow<str>],
@@ -864,6 +866,7 @@ fn debug_start(
     dap_start_impl(cx, name.as_deref(), None, Some(args))
 }
 
+#[cfg(feature = "dap")]
 fn debug_remote(
     cx: &mut compositor::Context,
     args: &[Cow<str>],
@@ -1383,6 +1386,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
             fun: tree_sitter_scopes,
             completer: None,
         },
+        #[cfg(feature = "dap")]
         TypableCommand {
             name: "debug-start",
             aliases: &["dbg"],
@@ -1390,6 +1394,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
             fun: debug_start,
             completer: None,
         },
+        #[cfg(feature = "dap")]
         TypableCommand {
             name: "debug-remote",
             aliases: &["dbg-tcp"],
@@ -1397,6 +1402,7 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
             fun: debug_remote,
             completer: None,
         },
+        #[cfg(feature = "dap")]
         TypableCommand {
             name: "debug-eval",
             aliases: &[],
