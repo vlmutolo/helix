@@ -324,7 +324,6 @@ impl Application {
         use helix_view::graphics::Rect;
         match signal {
             signal::SIGTSTP => {
-                self.compositor.save_cursor();
                 self.restore_term().unwrap();
                 low_level::emulate_default_handler(signal::SIGTSTP).unwrap();
             }
@@ -333,7 +332,6 @@ impl Application {
                 // redraw the terminal
                 let Rect { width, height, .. } = self.compositor.size();
                 self.compositor.resize(width, height);
-                self.compositor.load_cursor();
                 self.render();
             }
             _ => unreachable!(),
@@ -693,7 +691,12 @@ impl Application {
     }
 
     async fn claim_term(&mut self) -> Result<(), Error> {
+        use helix_view::graphics::CursorKind;
+        use tui::backend::Backend;
         terminal::enable_raw_mode()?;
+        if self.compositor.terminal.cursor_kind() == CursorKind::Hidden {
+            self.compositor.terminal.backend_mut().hide_cursor().ok();
+        }
         let mut stdout = stdout();
         execute!(stdout, terminal::EnterAlternateScreen)?;
         execute!(stdout, terminal::Clear(terminal::ClearType::All))?;
@@ -704,7 +707,18 @@ impl Application {
     }
 
     fn restore_term(&mut self) -> Result<(), Error> {
+        use helix_view::graphics::CursorKind;
+        use tui::backend::Backend;
+        if self.compositor.terminal.cursor_kind() == CursorKind::Hidden {
+            self.compositor
+                .terminal
+                .backend_mut()
+                .show_cursor(CursorKind::Block)
+                .ok();
+        }
+
         let mut stdout = stdout();
+
         // reset cursor shape
         write!(stdout, "\x1B[2 q")?;
         // Ignore errors on disabling, this might trigger on windows if we call
