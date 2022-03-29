@@ -1,6 +1,5 @@
-use crate::compositor::{Component, Compositor, Context, EventResult, RenderContext};
+use crate::compositor::{Component, Compositor, Context, Event, EventResult, RenderContext};
 use crate::{alt, ctrl, key, shift, ui};
-use crossterm::event::Event;
 use helix_view::input::KeyEvent;
 use helix_view::keyboard::{KeyCode, KeyModifiers};
 use std::{borrow::Cow, ops::RangeFrom};
@@ -450,7 +449,7 @@ impl Component for Prompt {
             compositor.pop();
         })));
 
-        match event.into() {
+        match event {
             ctrl!('c') | key!(Esc) => {
                 (self.callback_fn)(cx, &self.line, PromptEvent::Abort);
                 return close_fn;
