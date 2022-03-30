@@ -344,7 +344,6 @@ impl Application {
 
     #[cfg(not(windows))]
     pub async fn handle_signals(&mut self, signal: i32) {
-        use helix_view::graphics::Rect;
         match signal {
             signal::SIGTSTP => {
                 self.restore_term().unwrap();
@@ -353,8 +352,11 @@ impl Application {
             signal::SIGCONT => {
                 self.claim_term().await.unwrap();
                 // redraw the terminal
-                let Rect { width, height, .. } = self.compositor.size();
-                self.compositor.resize(width, height);
+                let area = self
+                    .terminal
+                    .size()
+                    .expect("Unable to determine terminal size");
+                self.terminal.resize(area);
                 self.render();
             }
             _ => unreachable!(),
