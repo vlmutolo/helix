@@ -1,14 +1,14 @@
-use helix_view::compositor::{Component, Compositor, Context, Event, EventResult, RenderContext};
+use crate::compositor::{Component, Compositor, Context, Event, EventResult, RenderContext};
 use crate::{alt, ctrl, key, shift, ui};
-use helix_view::input::KeyEvent;
-use helix_view::keyboard::{KeyCode, KeyModifiers};
+use crate::input::KeyEvent;
+use crate::keyboard::{KeyCode, KeyModifiers};
 use std::{borrow::Cow, ops::RangeFrom};
 use tui::widgets::{Block, Borders, Widget};
 
 use helix_core::{
     unicode::segmentation::GraphemeCursor, unicode::width::UnicodeWidthStr, Position,
 };
-use helix_view::{
+use crate::{
     graphics::{CursorKind, Margin, Rect},
     Editor,
 };
