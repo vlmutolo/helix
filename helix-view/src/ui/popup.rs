@@ -198,3 +198,6 @@ impl<T: Component> compositor::term::Render for Popup<T> {
         self.contents.render(inner, cx);
     }
 }
+
+#[cfg(feature = "ui")]
+impl<T: Component> compositor::ui::Render for Popup<T> {}

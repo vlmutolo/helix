@@ -265,6 +265,9 @@ impl<T: 'static> compositor::term::Render for FilePicker<T> {
     }
 }
 
+#[cfg(feature = "ui")]
+impl<T: 'static> compositor::ui::Render for FilePicker<T> {}
+
 impl<T: 'static> Component for FilePicker<T> {
     fn handle_event(&mut self, event: Event, ctx: &mut Context) -> EventResult {
         // TODO: keybinds for scrolling preview
@@ -657,3 +660,6 @@ impl<T: 'static> compositor::term::Render for Picker<T> {
         self.prompt.cursor(area, editor)
     }
 }
+
+#[cfg(feature = "ui")]
+impl<T: 'static> compositor::ui::Render for Picker<T> {}
