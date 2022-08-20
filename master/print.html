@@ -900,6 +900,7 @@ Languages</a> guide for more language configuration information.</p>
 <tr><td>svelte</td><td>✓</td><td></td><td>✓</td><td><code>svelteserver</code></td></tr>
 <tr><td>swift</td><td>✓</td><td></td><td></td><td><code>sourcekit-lsp</code></td></tr>
 <tr><td>tablegen</td><td>✓</td><td>✓</td><td>✓</td><td></td></tr>
+<tr><td>task</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>tfvars</td><td></td><td></td><td></td><td><code>terraform-ls</code></td></tr>
 <tr><td>toml</td><td>✓</td><td></td><td></td><td><code>taplo</code></td></tr>
 <tr><td>tsq</td><td>✓</td><td></td><td></td><td></td></tr>
@@ -1026,6 +1027,7 @@ the default file-picker configuration below are IgnoreOptions: whether hidden
 files and files listed within ignore files are ignored by (not visible in) the
 helix file picker and global search. There is also one other key, <code>max-depth</code>
 available, which is not defined by default.</p>
+<p>All git related options are only enabled in a git repository.</p>
 <div class="table-wrapper"><table><thead><tr><th>Key</th><th>Description</th><th>Default</th></tr></thead><tbody>
 <tr><td><code>hidden</code></td><td>Enables ignoring hidden files.</td><td>true</td></tr>
 <tr><td><code>parents</code></td><td>Enables reading ignore files from parent directories.</td><td>true</td></tr>
@@ -1185,6 +1187,9 @@ over it and is merged into the default palette.</p>
 <a href="https://macromates.com/manual/en/language_grammars">TextMate</a> scopes.</p>
 <ul>
 <li>
+<p><code>attribute</code> - Class attributes, html tag attributes</p>
+</li>
+<li>
 <p><code>type</code> - Types</p>
 <ul>
 <li><code>builtin</code> - Primitive types provided by the language (<code>int</code>, <code>usize</code>)</li>
@@ -1248,7 +1253,6 @@ over it and is merged into the default palette.</p>
 <li><code>member</code> - Fields of composite data types (e.g. structs, unions)</li>
 </ul>
 </li>
-<li><code>function</code> (TODO: ?)</li>
 </ul>
 </li>
 <li>
@@ -1259,6 +1263,7 @@ over it and is merged into the default palette.</p>
 <ul>
 <li><code>delimiter</code> - Commas, colons</li>
 <li><code>bracket</code> - Parentheses, angle brackets, etc.</li>
+<li><code>special</code> - String interpolation brackets.</li>
 </ul>
 </li>
 <li>
